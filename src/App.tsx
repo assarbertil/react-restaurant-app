@@ -5,7 +5,7 @@ function App() {
     <div>
       <Text>Text</Text>
       <Text as="h1" type="title1">
-        H1
+        H1 h2
       </Text>
     </div>
   );
