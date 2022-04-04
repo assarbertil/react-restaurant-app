@@ -22,7 +22,7 @@ export const Header = () => (
 
       <div>
         <Link to="/boka">
-          <Button as="a" type="tertiary" size="large">
+          <Button as="span" type="tertiary" size="large">
             Boka bord
           </Button>
         </Link>
@@ -30,7 +30,7 @@ export const Header = () => (
           <Text
             type="large"
             css={{ color: '$secondary', marginLeft: '2rem' }}
-            as="a"
+            as="span"
           >
             Kontakt
           </Text>
