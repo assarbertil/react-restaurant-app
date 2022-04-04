@@ -1,11 +1,11 @@
-import { Text } from "./components/Text";
+import { Text } from "components/primitives/Text";
 
 function App() {
   return (
     <div>
-      <Text>asdasdsd</Text>
+      <Text>Text</Text>
       <Text as="h1" type="title1">
-        asdasdsd
+        H1
       </Text>
     </div>
   );
