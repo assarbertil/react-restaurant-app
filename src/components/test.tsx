@@ -1,6 +1,4 @@
-import { styled } from "@stitches/react";
+import { styled } from '@stitches/react'
 export function Test() {
-    return (
-        <div></div>
-    )
+  return <div></div>
 }

@@ -1,4 +1,4 @@
-import { Text } from "components/primitives/Text";
+import { Text } from 'components/primitives/Text'
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
         H1 h2
       </Text>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
