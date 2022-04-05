@@ -5,6 +5,7 @@ import { Home } from './routes/Home'
 import { globalCss } from 'stitches.config'
 import { Contact } from './routes/Contact'
 import { Booking } from './routes/Booking'
+import { Admin } from 'routes/Admin'
 
 const globalStyles = globalCss({
   '*': {
@@ -14,6 +15,7 @@ const globalStyles = globalCss({
   },
   html: {
     fontFamily: '$body',
+    color: '$foreground',
     backgroundColor: '$background'
   },
   a: {
@@ -30,6 +32,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/boka" element={<Booking />} />
         <Route path="/kontakt" element={<Contact />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Layout>
   )
