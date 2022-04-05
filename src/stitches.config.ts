@@ -14,7 +14,7 @@ export const { styled, globalCss } = createStitches({
     },
 
     fonts: {
-      tiles: 'Oswald, sans-serif',
+      titles: 'Oswald, sans-serif',
       body: 'Roboto, sans-serif'
     },
 
