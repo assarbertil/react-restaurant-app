@@ -4,7 +4,6 @@ import { Text } from './primitives/Text'
 
 const FooterElement = styled('header', {
   display: 'flex',
-  flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
@@ -26,7 +25,7 @@ export const Footer = () => {
       </Link>
       <Link to="/admin">
         <Text type="large" css={{ color: '$secondary', marginLeft: '2rem' }}>
-          Adminnnnn
+          Admin
         </Text>
       </Link>
     </FooterElement>

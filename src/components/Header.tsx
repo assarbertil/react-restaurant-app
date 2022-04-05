@@ -17,7 +17,7 @@ export const Header = () => (
   <Container>
     <HeaderElement>
       <Link to="/">
-        <img src="img/logo.png" alt="" height={128} width={128} />
+        <img src="img/logo.png" alt="" height={96} width={96} />
       </Link>
 
       <div>
