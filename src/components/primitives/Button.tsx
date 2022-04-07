@@ -13,7 +13,7 @@ export const Button = styled('button', {
   },
 
   variants: {
-    type: {
+    variant: {
       primary: { background: '$primary' },
       secondary: { background: '$secondary', color: '$background' },
       tertiary: { border: '1px solid $secondary', color: '$secondary' }
@@ -34,7 +34,7 @@ export const Button = styled('button', {
   },
 
   defaultVariants: {
-    type: 'primary',
+    variant: 'primary',
     size: 'base'
   }
 })

@@ -4,12 +4,15 @@ import { registerLocale } from 'react-datepicker'
 import sv from 'date-fns/locale/sv'
 import { filterBookingsByDay } from './filterBookingsByDay'
 import { countBookingsByDay } from './countBookingsByDay'
+
 registerLocale('sv', sv)
+
 export const filterBookedTimes = (time: Date, bookedDates: IBooking[]) => {
   let formattedDate = format(time, 'P', { locale: sv })
   let formattedTime = format(time, 'p', { locale: sv })
   let filteredBookings = filterBookingsByDay(bookedDates, formattedDate)
   let bookingsByDay = countBookingsByDay(filteredBookings)
+
   if (formattedTime === '18:00' && bookingsByDay.bookingsAtSixAmount < 15)
     return true
   if (formattedTime === '21:00' && bookingsByDay.bookingsAtNineAmount < 15)

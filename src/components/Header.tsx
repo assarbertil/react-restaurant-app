@@ -22,7 +22,7 @@ export const Header = () => (
 
       <div>
         <Link to="/boka">
-          <Button as="span" type="tertiary" size="large">
+          <Button as="span" variant="tertiary" size="large">
             Boka bord
           </Button>
         </Link>

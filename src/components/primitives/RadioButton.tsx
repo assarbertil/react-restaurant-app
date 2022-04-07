@@ -1,13 +1,14 @@
-import { ChangeEventHandler, FC } from 'react'
+import { ChangeEventHandler, FC, FocusEvent, FocusEventHandler } from 'react'
 import { styled } from 'stitches.config'
 
 interface RadioButtonProps {
   label: string
-  value?: string
+  value?: string | number
   name: string
   defaultChecked?: boolean
   id?: string
   onChange?: ChangeEventHandler<HTMLInputElement> | undefined
+  onBlur?: FocusEventHandler<HTMLInputElement> | undefined
 }
 
 export const RadioButton: FC<RadioButtonProps> = ({
@@ -26,7 +27,6 @@ export const RadioButton: FC<RadioButtonProps> = ({
         name={name}
         value={value}
         defaultChecked={defaultChecked}
-        className="radio-button"
       />
       <Label htmlFor={id}>{label}</Label>
     </RadioContainer>
