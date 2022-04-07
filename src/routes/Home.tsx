@@ -29,7 +29,7 @@ export const Home = () => {
         <Link to="/boka">
           <Button
             as="span"
-            type="primary"
+            variant="primary"
             size="large"
             css={{
               textShadow: '0 4px 16px black',
