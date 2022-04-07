@@ -1,6 +1,7 @@
+import { Field } from 'formik'
 import { styled } from 'stitches.config'
 
-export const Input = styled('input', {
+const InputElement = styled(Field, {
   color: '$background',
   background: '$foreground',
   padding: '0.5rem 1.5rem',
@@ -14,3 +15,7 @@ export const Input = styled('input', {
     opacity: 0.9
   }
 })
+
+export const Input = (props: any) => {
+  return <InputElement {...props} type="text" />
+}

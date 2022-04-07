@@ -1,3 +1,4 @@
+import { Field } from 'formik'
 import { ChangeEventHandler, FC, FocusEvent, FocusEventHandler } from 'react'
 import { styled } from 'stitches.config'
 
@@ -5,8 +6,8 @@ interface RadioButtonProps {
   label: string
   value?: string | number
   name: string
-  defaultChecked?: boolean
   id?: string
+  checked?: boolean
   onChange?: ChangeEventHandler<HTMLInputElement> | undefined
   onBlur?: FocusEventHandler<HTMLInputElement> | undefined
 }
@@ -15,25 +16,19 @@ export const RadioButton: FC<RadioButtonProps> = ({
   label,
   value,
   name,
-  defaultChecked = false,
   id,
+  checked,
   onChange
 }) => {
   return (
     <RadioContainer>
-      <Input
-        type="radio"
-        id={id}
-        name={name}
-        value={value}
-        defaultChecked={defaultChecked}
-      />
+      <Input type="radio" id={id} name={name} value={value} checked={checked} />
       <Label htmlFor={id}>{label}</Label>
     </RadioContainer>
   )
 }
 
-const Input = styled('input', {
+const Input = styled(Field, {
   display: 'none',
 
   '&:checked + label': {

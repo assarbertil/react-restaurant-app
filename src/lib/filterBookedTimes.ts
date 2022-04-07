@@ -7,14 +7,21 @@ import { countBookingsByDay } from './countBookingsByDay'
 
 registerLocale('sv', sv)
 
-export const filterBookedTimes = (time: Date, bookedDates: IBooking[]) => {
+export const filterBookedTimes: any = (time: Date, bookings: IBooking[]) => {
+  console.log('körs')
   let formattedDate = format(time, 'P', { locale: sv })
   let formattedTime = format(time, 'p', { locale: sv })
-  let filteredBookings = filterBookingsByDay(bookedDates, formattedDate)
+  let filteredBookings = filterBookingsByDay(bookings, formattedDate)
   let bookingsByDay = countBookingsByDay(filteredBookings)
 
-  if (formattedTime === '18:00' && bookingsByDay.bookingsAtSixAmount < 15)
+  if (formattedTime === '18:00' && bookingsByDay.bookingsAtSixAmount < 15) {
     return true
-  if (formattedTime === '21:00' && bookingsByDay.bookingsAtNineAmount < 15)
+  } else if (
+    formattedTime === '21:00' &&
+    bookingsByDay.bookingsAtNineAmount < 15
+  ) {
     return true
+  } else {
+    return false
+  }
 }
