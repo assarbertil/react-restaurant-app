@@ -2,6 +2,7 @@ import { Text, Input, RadioButton, Button } from '../../components/primitives'
 import { useBookings } from '../../hooks/useBookings'
 import { FieldGroup } from './FieldGroup'
 import { styled } from 'stitches.config'
+import DateForm from './DateForm'
 
 const handleRadio = (e: any) => {
   console.log(e.target.value)
@@ -13,7 +14,7 @@ export const BookingForm = () => {
   data && console.log(data)
 
   return (
-    <Text>
+    <>
       <FieldGroup name="Hur många gäster">
         <RadioButtonContainer>
           <RadioButton
@@ -70,7 +71,8 @@ export const BookingForm = () => {
       <Button size="large" type="secondary" css={{ marginTop: '2rem' }}>
         Boka
       </Button>
-    </Text>
+      <DateForm />
+    </>
   )
 }
 
