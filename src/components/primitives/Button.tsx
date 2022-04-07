@@ -5,11 +5,17 @@ export const Button = styled('button', {
   border: 0,
   color: 'white',
   textDecoration: 'none',
+  fontFamily: '$body',
+  cursor: 'pointer',
+
+  '&:hover': {
+    opacity: 0.9
+  },
 
   variants: {
     type: {
       primary: { background: '$primary' },
-      secondary: { background: '$secondary' },
+      secondary: { background: '$secondary', color: '$background' },
       tertiary: { border: '1px solid $secondary', color: '$secondary' }
     },
 
