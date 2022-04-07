@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { Home } from './routes/Home'
-
 import { globalCss } from 'stitches.config'
 import { Contact } from './routes/Contact'
 import { Booking } from './routes/Booking'
@@ -13,11 +12,13 @@ const globalStyles = globalCss({
     padding: 0,
     boxSizing: 'border-box'
   },
+
   html: {
     fontFamily: '$body',
     color: '$foreground',
     backgroundColor: '$background'
   },
+
   a: {
     textDecoration: 'none'
   }
