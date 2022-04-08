@@ -13,11 +13,11 @@ export const filterBookedTimes: any = (time: Date, bookings: IBooking[]) => {
   let filteredBookings = filterBookingsByDay(bookings, formattedDate)
   let bookingsByDay = countBookingsByDay(filteredBookings)
 
-  if (formattedTime === '18:00' && bookingsByDay.bookingsAtSixAmount < 3) {
+  if (formattedTime === '18:00' && bookingsByDay.bookingsAtSixAmount < 15) {
     return true
   } else if (
     formattedTime === '21:00' &&
-    bookingsByDay.bookingsAtNineAmount < 3
+    bookingsByDay.bookingsAtNineAmount < 15
   ) {
     return true
   } else {

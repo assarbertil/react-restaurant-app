@@ -44,6 +44,7 @@ export const BookingForm = () => {
         phone: ''
       }}
       validationSchema={BookingSchema}
+
       onSubmit={async (values: IFormValues) => {
         const booking = {
           date: values.date,
@@ -75,6 +76,7 @@ export const BookingForm = () => {
                 <div style={{ color: 'red' }}>{errors.numberOfGuests}</div>
               ) : null}
             </RadioButtonContainer>
+    
           </FieldGroup>
 
           <FieldGroup name="Datum">
@@ -87,6 +89,7 @@ export const BookingForm = () => {
               {errors.name && touched.name ? (
                 <div style={{ color: 'red' }}>{errors.name}</div>
               ) : null}
+
               <Input
                 id="lastname"
                 name="lastname"
@@ -101,6 +104,7 @@ export const BookingForm = () => {
               {errors.email && touched.email ? (
                 <div style={{ color: 'red' }}>{errors.email}</div>
               ) : null}
+
               <Input
                 id="phone"
                 name="phone"

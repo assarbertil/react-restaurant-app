@@ -6,6 +6,7 @@ import {
   filterBookingsByDay,
   filterBookedTimes,
   returnCorrectBookingsArray
+  filterBookedTimes
 } from 'lib'
 import setMinutes from 'date-fns/setMinutes'
 import { useState, useEffect } from 'react'
