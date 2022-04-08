@@ -4,7 +4,8 @@ import {
   countBookingsByDay,
   checkBookingTime,
   filterBookingsByDay,
-  filterBookedTimes
+  filterBookedTimes,
+  returnCorrectBookingsArray
 } from 'lib'
 import setMinutes from 'date-fns/setMinutes'
 import { useState, useEffect } from 'react'
@@ -15,6 +16,7 @@ import sv from 'date-fns/locale/sv'
 import { useBookings } from '../../hooks/useBookings'
 import { useFormikContext } from 'formik'
 import { IFormValues } from '../../interfaces/FormValues'
+import { IBooking } from '@/interfaces/Booking'
 registerLocale('sv', sv)
 
 export const CustomDatePicker = () => {
@@ -30,6 +32,8 @@ export const CustomDatePicker = () => {
 
     setValues({ ...values, date: stringifiedDate, time: stringifiedTime })
   }
+
+  const arr = returnCorrectBookingsArray(bookings)
 
   if (bookings === undefined) return <div>'Loading'</div>
 
@@ -50,6 +54,8 @@ export const CustomDatePicker = () => {
       //     checkBookingTime(bookedDate)
       //   )
       // }
+      // excludeDates={[] || returnCorrectBookingsArray()}
+      excludeDates={arr}
       includeTimes={[
         setHours(setMinutes(new Date(), 0), 18),
         setHours(setMinutes(new Date(), 0), 21)

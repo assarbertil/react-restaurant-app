@@ -24,7 +24,7 @@ export const Admin = () => {
       <tbody>
         {data &&
           data.map((booking: any) => (
-            <tr>
+            <tr key={booking._id}>
               <Td>{booking._id}</Td>
               <Td>{booking.date}</Td>
               <Td>{booking.time}</Td>
