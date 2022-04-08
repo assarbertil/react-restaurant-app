@@ -1,11 +1,5 @@
 import { IBooking } from '@/interfaces/Booking'
 
-export const filterBookingsByDay = (
-  arrayOfBookings: IBooking[],
-  date: string
-) => {
-  const filteredArrays = arrayOfBookings.filter(booking => {
-    return booking.date === date
-  })
-  return filteredArrays
+export const filterBookingsByDay = (bookings: IBooking[], date: string) => {
+  return bookings.filter(booking => booking.date === date)
 }

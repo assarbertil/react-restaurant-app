@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import { IBooking } from 'interfaces/Booking'
-import { ICustomer } from 'interfaces/Customer'
 
 export const postBooking = async (booking: IBooking) => {
   const { date, time, numberOfGuests, customer } = booking
