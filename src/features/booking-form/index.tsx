@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { format } from 'date-fns'
 import sv from 'date-fns/locale/sv'
 import { registerLocale } from 'react-datepicker'
+import { Link } from 'react-router-dom'
 
 registerLocale('sv', sv)
 
@@ -116,10 +117,10 @@ export const BookingForm = () => {
                     id="6"
                     value={6}
                   />
-                  {errors.numberOfGuests && touched.numberOfGuests ? (
-                    <div style={{ color: 'red' }}>{errors.numberOfGuests}</div>
-                  ) : null}
                 </RadioButtonContainer>
+                {errors.numberOfGuests && touched.numberOfGuests ? (
+                  <div style={{ color: 'red' }}>{errors.numberOfGuests}</div>
+                ) : null}
               </FieldGroup>
 
               <FieldGroup name="Datum">
@@ -134,7 +135,7 @@ export const BookingForm = () => {
                     name="name"
                     type="text"
                     placeholder="Förnamn"
-                    isError={errors.name && touched.name}
+                    isError={errors.name && touched.name ? true : false}
                     errorMsg={errors.name}
                   />
 
@@ -144,7 +145,7 @@ export const BookingForm = () => {
                     name="lastname"
                     type="text"
                     placeholder="Efternamn"
-                    isError={errors.lastname && touched.lastname}
+                    isError={errors.lastname && touched.lastname ? true : false}
                     errorMsg={errors.lastname}
                   />
 
@@ -154,7 +155,7 @@ export const BookingForm = () => {
                     name="email"
                     type="text"
                     placeholder="Email"
-                    isError={errors.email && touched.email}
+                    isError={errors.email && touched.email ? true : false}
                     errorMsg={errors.email}
                   />
 
@@ -164,7 +165,7 @@ export const BookingForm = () => {
                     name="phone"
                     type="text"
                     placeholder="ex: +4612345678"
-                    isError={errors.phone && touched.phone}
+                    isError={errors.phone && touched.phone ? true : false}
                     errorMsg={errors.phone}
                   />
                 </InputContainer>
@@ -186,9 +187,25 @@ export const BookingForm = () => {
               </Text>
               <Text>Tack för din bokning, {values.name}!</Text>
               <Text>
-                Du har bokat klockan {values.time} den
-                {format(new Date(values.date), 'cccc', { locale: sv })}
+                Du har bokat{' '}
+                {format(new Date(values.date), 'cccc', { locale: sv })} den{' '}
+                {format(new Date(values.date), 'do LLLL', { locale: sv })}
+                {' klockan '}
+                {values.time} för {values.numberOfGuests} personer.
               </Text>
+              <Link to="/">
+                <Text
+                  css={{
+                    color: '$secondary',
+                    marginTop: '1rem',
+                    marginBottom: '16rem',
+                    display: 'block'
+                  }}
+                  as="span"
+                >
+                  Tillbaka till hem
+                </Text>
+              </Link>
             </div>
           )}
         </>

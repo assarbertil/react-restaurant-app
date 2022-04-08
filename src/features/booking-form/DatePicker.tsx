@@ -1,10 +1,10 @@
 import setHours from 'date-fns/setHours'
+import sub from 'date-fns/sub'
 import { format } from 'date-fns'
 import {
   countBookingsByDay,
-  filterBookedTimes,
-  filterBookingsByDay,
-  returnCorrectBookingsArray
+  checkSittingAvailability,
+  filterBookingsByDay
 } from 'lib'
 import setMinutes from 'date-fns/setMinutes'
 import { useState } from 'react'
@@ -32,20 +32,21 @@ export const CustomDatePicker = () => {
     setValues({ ...values, date: stringifiedDate, time: stringifiedTime })
   }
 
-  const filterDates = (date: Date) => {
-    const stringifiedDate = format(date, 'P', { locale: sv })
-    const currentDate = new Date()
-    const passedDate = new Date(date)
-
-    const todaysBooking = filterBookingsByDay(bookings, stringifiedDate)
-
-    return passedDate > currentDate && todaysBooking.length === 0
-  }
-  //
-  // let arr
-  // if (bookings) arr = returnCorrectBookingsArray(bookings)
-
   if (!bookings) return <div>'Loading'</div>
+
+  const filterDates = (date: Date) => {
+    const dateAsString = format(date, 'P', { locale: sv })
+    const currentDate = sub(new Date(), { days: 1 })
+
+    const todaysBooking = filterBookingsByDay(bookings, dateAsString)
+    const numberOfBookingsPerTime = countBookingsByDay(todaysBooking)
+    const bookingsSum = Object.values(numberOfBookingsPerTime).reduce(
+      (a, b) => a + b,
+      0
+    )
+
+    return date > currentDate && bookingsSum < 30
+  }
 
   return (
     <DatePicker
@@ -60,13 +61,12 @@ export const CustomDatePicker = () => {
       locale="sv"
       timeCaption="klockslag"
       dateFormat="yyyy-MM-dd p"
-      // excludeDates={arr}
       filterDate={filterDates}
       includeTimes={[
         setHours(setMinutes(new Date(), 0), 18),
         setHours(setMinutes(new Date(), 0), 21)
       ]}
-      filterTime={time => filterBookedTimes(time, bookings)}
+      filterTime={time => checkSittingAvailability(time, bookings)}
     />
   )
 }

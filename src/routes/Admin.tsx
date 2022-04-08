@@ -2,9 +2,10 @@ import Tool from '../components/icons/Tool'
 import { styled } from 'stitches.config'
 import { useBookings } from '../hooks/useBookings'
 import Trashcan from '../components/icons/Trashcan'
+import { deleteBooking } from 'lib/deleteBooking'
 
 export const Admin = () => {
-  const { data, error, isLoading } = useBookings()
+  const { data, error, isLoading, mutate } = useBookings()
 
   data && console.log(data)
 
@@ -42,6 +43,16 @@ export const Admin = () => {
                   css={{
                     color: '$secondary',
                     '&:hover': { color: '$primary' }
+                  }}
+                  onClick={() => {
+                    const newData = data.filter(b => b._id !== booking._id)
+
+                    deleteBooking(booking._id)
+                    mutate(newData, {
+                      optimisticData: newData,
+                      rollbackOnError: true,
+                      revalidate: false
+                    })
                   }}
                 />
               </Td>

@@ -1,4 +1,5 @@
 import { Field } from 'formik'
+import { FC } from 'react'
 import { styled } from 'stitches.config'
 import { Text } from './Text'
 
@@ -21,16 +22,34 @@ const InputElement = styled(Field, {
   }
 })
 
-export const Input = (props: any) => {
+interface InputProps {
+  label?: string
+  placeholder?: string
+  type?: string
+  name: string
+  id: string
+  isError: boolean
+  errorMsg: string | undefined
+}
+
+export const Input: FC<InputProps> = ({
+  id,
+  label,
+  name,
+  isError,
+  errorMsg,
+  placeholder = '',
+  type = 'text'
+}) => {
   return (
     <InputContainer>
-      <label htmlFor={props.id}>
+      <label htmlFor={id}>
         <Text type="title4" css={{ marginTop: '1rem' }}>
-          {props.label}
+          {label}
         </Text>
       </label>
-      <InputElement {...props} />
-      {props.isError && (
+      <InputElement type={type} placeholder={placeholder} id={id} name={name} />
+      {isError && (
         <Text
           type="small"
           css={{
@@ -39,7 +58,7 @@ export const Input = (props: any) => {
             bottom: '-1.25rem'
           }}
         >
-          {props.errorMsg}
+          {errorMsg}
         </Text>
       )}
     </InputContainer>

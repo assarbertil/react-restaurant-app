@@ -1,5 +1,9 @@
 import useSWR from 'swr'
-import { fetcher } from '../utils/fetcher'
+import axios from 'axios'
+import { IBooking } from '@/interfaces/Booking'
+
+export const fetcher = (url: string) =>
+  axios.get<IBooking[]>(url).then(res => res.data)
 
 export function useBookings() {
   const { data, error, mutate } = useSWR(

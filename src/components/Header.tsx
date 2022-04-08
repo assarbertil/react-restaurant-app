@@ -20,22 +20,11 @@ export const Header = () => (
         <img src="img/logo.png" alt="" height={96} width={96} />
       </Link>
 
-      <div>
-        <Link to="/boka">
-          <Button as="span" variant="tertiary" size="large">
-            Boka bord
-          </Button>
-        </Link>
-        <Link to="/kontakt">
-          <Text
-            type="large"
-            css={{ color: '$secondary', marginLeft: '2rem' }}
-            as="span"
-          >
-            Kontakt
-          </Text>
-        </Link>
-      </div>
+      <Link to="/boka">
+        <Button as="span" variant="tertiary" size="large">
+          Boka bord
+        </Button>
+      </Link>
     </HeaderElement>
   </Container>
 )

@@ -13,7 +13,7 @@ export const countBookingsByDay = (arrayOfBookings: IBooking[]) => {
   })
 
   return {
-    bookingsAtSixAmount: sixArray.length,
-    bookingsAtNineAmount: nineArray.length
+    bookingsAtSix: sixArray.length,
+    bookingsAtNine: nineArray.length
   }
 }
