@@ -1,6 +1,5 @@
 import { styled } from '../stitches.config'
 import { BookingForm } from '../features/booking-form'
-import { postBooking } from '../lib/postBooking'
 
 const BackgroundContainer = styled('section', {
   backgroundImage: 'url(img/steak-dark.jpg)',
