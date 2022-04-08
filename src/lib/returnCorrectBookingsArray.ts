@@ -18,6 +18,5 @@ export const returnCorrectBookingsArray = (bookings: IBooking[]) => {
       }
     })
   })
-  console.log(allArray)
   return allArray
 }
