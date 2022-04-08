@@ -8,7 +8,6 @@ import { countBookingsByDay } from './countBookingsByDay'
 registerLocale('sv', sv)
 
 export const filterBookedTimes: any = (time: Date, bookings: IBooking[]) => {
-  console.log('körs')
   let formattedDate = format(time, 'P', { locale: sv })
   let formattedTime = format(time, 'p', { locale: sv })
   let filteredBookings = filterBookingsByDay(bookings, formattedDate)

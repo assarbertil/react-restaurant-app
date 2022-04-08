@@ -7,6 +7,27 @@ import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import { IFormValues } from '@/interfaces/FormValues'
 import { postBooking } from 'lib'
+const BookingSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, 'Ange ett korrekt förnamn, minst 2 bokstäver')
+    .max(20, 'Ange ett korrekt förnamn, högst 20 bokstäver')
+    .required('Du måste ange ditt förnamn'),
+  lastname: Yup.string()
+    .min(2, 'Ange ett korrekt efternamn, minst 2 bokstäver')
+    .max(20, 'Ange ett korrekt efternamn, högst 20 bokstäver')
+    .required('Du måste ange ditt efternamn'),
+  email: Yup.string()
+    .email('ange en korrekt email')
+    .required('Du måste ange en email'),
+  phone: Yup.string()
+    .min(10, 'ange ett korrekt telefonnummer, minst 10 siffror')
+    .max(10, 'ange ett korrekt telefonnummer, högst 10 siffror')
+    .required('Du måste ange ditt telefonnummer'),
+  numberOfGuests: Yup.number()
+    .min(1, 'Ange hur många ni är i sällskapet, minst 1 person')
+    .max(6, 'Ange hur många ni är i sällskapet, minst 1 person')
+    .required('Ange hur många ni är i sällskapet, minst 1 person')
+})
 
 export const BookingForm = () => {
   const { data: bookedDates, error, isLoading } = useBookings()
@@ -22,6 +43,8 @@ export const BookingForm = () => {
         email: '',
         phone: ''
       }}
+      validationSchema={BookingSchema}
+
       onSubmit={async (values: IFormValues) => {
         const booking = {
           date: values.date,
@@ -39,7 +62,7 @@ export const BookingForm = () => {
         alert(JSON.stringify(booking, null, 2))
       }}
     >
-      {({ values }) => (
+      {({ values, errors, touched }) => (
         <Form>
           <FieldGroup name="Hur många gäster">
             <RadioButtonContainer role="group" aria-labelledby="my-radio-group">
@@ -49,11 +72,11 @@ export const BookingForm = () => {
               <RadioButton label="4" name="numberOfGuests" id="4" value={4} />
               <RadioButton label="5" name="numberOfGuests" id="5" value={5} />
               <RadioButton label="6" name="numberOfGuests" id="6" value={6} />
+              {errors.numberOfGuests && touched.numberOfGuests ? (
+                <div style={{ color: 'red' }}>{errors.numberOfGuests}</div>
+              ) : null}
             </RadioButtonContainer>
-
-            {/* {formik.touched.numberOfGuests && formik.errors.numberOfGuests ? (
-              <div style={{ color: 'red' }}>{formik.errors.numberOfGuests}</div>
-            ) : null} */}
+    
           </FieldGroup>
 
           <FieldGroup name="Datum">
@@ -63,23 +86,24 @@ export const BookingForm = () => {
           <FieldGroup name="Kontaktuppgifter">
             <InputContainer>
               <Input id="name" name="name" type="text" placeholder="Förnamn" />
-              {/* {formik.touched.name && formik.errors.name ? (
-                <div style={{ color: 'red' }}>{formik.errors.name}</div>
-              ) : null} */}
+              {errors.name && touched.name ? (
+                <div style={{ color: 'red' }}>{errors.name}</div>
+              ) : null}
+
               <Input
                 id="lastname"
                 name="lastname"
                 type="text"
                 placeholder="Efternamn"
               />
-              {/* {formik.touched.lastname && formik.errors.lastname ? (
-                <div style={{ color: 'red' }}>{formik.errors.lastname}</div>
-              ) : null} */}
+              {errors.lastname && touched.lastname ? (
+                <div style={{ color: 'red' }}>{errors.lastname}</div>
+              ) : null}
 
               <Input id="email" name="email" type="text" placeholder="Email" />
-              {/* {formik.touched.email && formik.errors.email ? (
-                <div style={{ color: 'red' }}>{formik.errors.email}</div>
-              ) : null} */}
+              {errors.email && touched.email ? (
+                <div style={{ color: 'red' }}>{errors.email}</div>
+              ) : null}
 
               <Input
                 id="phone"
@@ -87,9 +111,9 @@ export const BookingForm = () => {
                 type="text"
                 placeholder="Telefon"
               />
-              {/* {formik.touched.phone && formik.errors.phone ? (
-                <div style={{ color: 'red' }}>{formik.errors.phone}</div>
-              ) : null} */}
+              {errors.phone && touched.phone ? (
+                <div style={{ color: 'red' }}>{errors.phone}</div>
+              ) : null}
             </InputContainer>
           </FieldGroup>
 
