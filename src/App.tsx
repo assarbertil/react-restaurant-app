@@ -21,6 +21,10 @@ const globalStyles = globalCss({
 
   a: {
     textDecoration: 'none'
+  },
+
+  '.react-datepicker__day--selected': {
+    backgroundColor: '$secondary !important'
   }
 })
 

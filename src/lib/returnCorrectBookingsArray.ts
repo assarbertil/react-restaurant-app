@@ -13,10 +13,11 @@ export const returnCorrectBookingsArray = (bookings: IBooking[]) => {
         } else if (booking.time && nestedLoopBooking.time === '21:00') {
           nineOClock += 1
         }
-      if (sixOClock >= 3 && nineOClock >= 3) {
+      if (sixOClock >= 15 && nineOClock >= 15) {
         allArray.push(new Date(booking.date))
       }
     })
   })
+  console.log(allArray)
   return allArray
 }

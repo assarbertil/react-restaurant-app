@@ -1,4 +1,4 @@
-import { Input, RadioButton, Button } from '../../components/primitives'
+import { Input, RadioButton, Button, Text } from '../../components/primitives'
 import { useBookings } from '../../hooks/useBookings'
 import { FieldGroup } from './FieldGroup'
 import { styled } from 'stitches.config'
@@ -7,6 +7,13 @@ import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import { IFormValues } from '@/interfaces/FormValues'
 import { postBooking } from 'lib'
+import { useState } from 'react'
+import { format } from 'date-fns'
+import sv from 'date-fns/locale/sv'
+import { registerLocale } from 'react-datepicker'
+
+registerLocale('sv', sv)
+
 const BookingSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, 'Ange ett korrekt förnamn, minst 2 bokstäver')
@@ -17,11 +24,12 @@ const BookingSchema = Yup.object().shape({
     .max(20, 'Ange ett korrekt efternamn, högst 20 bokstäver')
     .required('Du måste ange ditt efternamn'),
   email: Yup.string()
-    .email('ange en korrekt email')
+    .email('Ange en korrekt email')
     .required('Du måste ange en email'),
   phone: Yup.string()
-    .min(10, 'ange ett korrekt telefonnummer, minst 10 siffror')
-    .max(10, 'ange ett korrekt telefonnummer, högst 10 siffror')
+    .matches(/^\+?\d+$/, 'Ange ett korrekt telefonnummer, ex: +4612345678')
+    .min(9, 'Ange ett korrekt telefonnummer, minst 10 siffror')
+    .max(12, 'Ange ett korrekt telefonnummer, högst 10 siffror')
     .required('Du måste ange ditt telefonnummer'),
   numberOfGuests: Yup.number()
     .min(1, 'Ange hur många ni är i sällskapet, minst 1 person')
@@ -30,7 +38,8 @@ const BookingSchema = Yup.object().shape({
 })
 
 export const BookingForm = () => {
-  const { data: bookedDates, error, isLoading } = useBookings()
+  const [submitted, setSubmitted] = useState(false)
+  const { data: bookedDates, error, isLoading, mutate } = useBookings()
 
   return (
     <Formik
@@ -44,7 +53,6 @@ export const BookingForm = () => {
         phone: ''
       }}
       validationSchema={BookingSchema}
-
       onSubmit={async (values: IFormValues) => {
         const booking = {
           date: values.date,
@@ -54,78 +62,136 @@ export const BookingForm = () => {
             name: values.name,
             lastname: values.lastname,
             email: values.email,
-            phone: values.phone
+            phone: values.phone.toString()
           }
         }
 
         postBooking(booking)
         alert(JSON.stringify(booking, null, 2))
+        setSubmitted(true)
       }}
     >
       {({ values, errors, touched }) => (
-        <Form>
-          <FieldGroup name="Hur många gäster">
-            <RadioButtonContainer role="group" aria-labelledby="my-radio-group">
-              <RadioButton label="1" name="numberOfGuests" id="1" value={1} />
-              <RadioButton label="2" name="numberOfGuests" id="2" value={2} />
-              <RadioButton label="3" name="numberOfGuests" id="3" value={3} />
-              <RadioButton label="4" name="numberOfGuests" id="4" value={4} />
-              <RadioButton label="5" name="numberOfGuests" id="5" value={5} />
-              <RadioButton label="6" name="numberOfGuests" id="6" value={6} />
-              {errors.numberOfGuests && touched.numberOfGuests ? (
-                <div style={{ color: 'red' }}>{errors.numberOfGuests}</div>
-              ) : null}
-            </RadioButtonContainer>
-    
-          </FieldGroup>
+        <>
+          {!submitted ? (
+            <Form>
+              <FieldGroup name="Hur många gäster">
+                <RadioButtonContainer
+                  role="group"
+                  aria-labelledby="my-radio-group"
+                >
+                  <RadioButton
+                    label="1"
+                    name="numberOfGuests"
+                    id="1"
+                    value={1}
+                  />
+                  <RadioButton
+                    label="2"
+                    name="numberOfGuests"
+                    id="2"
+                    value={2}
+                  />
+                  <RadioButton
+                    label="3"
+                    name="numberOfGuests"
+                    id="3"
+                    value={3}
+                  />
+                  <RadioButton
+                    label="4"
+                    name="numberOfGuests"
+                    id="4"
+                    value={4}
+                  />
+                  <RadioButton
+                    label="5"
+                    name="numberOfGuests"
+                    id="5"
+                    value={5}
+                  />
+                  <RadioButton
+                    label="6"
+                    name="numberOfGuests"
+                    id="6"
+                    value={6}
+                  />
+                  {errors.numberOfGuests && touched.numberOfGuests ? (
+                    <div style={{ color: 'red' }}>{errors.numberOfGuests}</div>
+                  ) : null}
+                </RadioButtonContainer>
+              </FieldGroup>
 
-          <FieldGroup name="Datum">
-            <CustomDatePicker />
-          </FieldGroup>
+              <FieldGroup name="Datum">
+                <CustomDatePicker />
+              </FieldGroup>
 
-          <FieldGroup name="Kontaktuppgifter">
-            <InputContainer>
-              <Input id="name" name="name" type="text" placeholder="Förnamn" />
-              {errors.name && touched.name ? (
-                <div style={{ color: 'red' }}>{errors.name}</div>
-              ) : null}
+              <FieldGroup name="Kontaktuppgifter">
+                <InputContainer>
+                  <Input
+                    label="Förnamn"
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Förnamn"
+                    isError={errors.name && touched.name}
+                    errorMsg={errors.name}
+                  />
 
-              <Input
-                id="lastname"
-                name="lastname"
-                type="text"
-                placeholder="Efternamn"
-              />
-              {errors.lastname && touched.lastname ? (
-                <div style={{ color: 'red' }}>{errors.lastname}</div>
-              ) : null}
+                  <Input
+                    label="Efternamn"
+                    id="lastname"
+                    name="lastname"
+                    type="text"
+                    placeholder="Efternamn"
+                    isError={errors.lastname && touched.lastname}
+                    errorMsg={errors.lastname}
+                  />
 
-              <Input id="email" name="email" type="text" placeholder="Email" />
-              {errors.email && touched.email ? (
-                <div style={{ color: 'red' }}>{errors.email}</div>
-              ) : null}
+                  <Input
+                    label="Email"
+                    id="email"
+                    name="email"
+                    type="text"
+                    placeholder="Email"
+                    isError={errors.email && touched.email}
+                    errorMsg={errors.email}
+                  />
 
-              <Input
-                id="phone"
-                name="phone"
-                type="text"
-                placeholder="Telefon"
-              />
-              {errors.phone && touched.phone ? (
-                <div style={{ color: 'red' }}>{errors.phone}</div>
-              ) : null}
-            </InputContainer>
-          </FieldGroup>
+                  <Input
+                    label="Telefonnummer"
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    placeholder="ex: +4612345678"
+                    isError={errors.phone && touched.phone}
+                    errorMsg={errors.phone}
+                  />
+                </InputContainer>
+              </FieldGroup>
 
-          <Button
-            type="submit"
-            size="large"
-            variant="secondary"
-            css={{ marginTop: '2rem' }}
-          >
-            Boka
-          </Button>
-        </Form>
+              <Button
+                type="submit"
+                size="large"
+                variant="secondary"
+                css={{ marginTop: '2rem' }}
+              >
+                Boka
+              </Button>
+            </Form>
+          ) : (
+            <div>
+              <Text as="h3" type="title3">
+                Din bokning har skickats!
+              </Text>
+              <Text>Tack för din bokning, {values.name}!</Text>
+              <Text>
+                Du har bokat klockan {values.time} den
+                {format(new Date(values.date), 'cccc', { locale: sv })}
+              </Text>
+            </div>
+          )}
+        </>
       )}
     </Formik>
   )
