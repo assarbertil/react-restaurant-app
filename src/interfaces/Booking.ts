@@ -1,9 +1,8 @@
-import { ICustomer } from './Customer'
-
 export interface IBooking {
-  _id?: string
+  _id: string
+  restaurantId: string
   date: string
   time: string
   numberOfGuests: number
-  customer: ICustomer
+  customerId: string
 }

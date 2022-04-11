@@ -1,4 +1,4 @@
-import { IBooking } from 'interfaces/Booking'
+import { IBooking } from '@/interfaces/Booking'
 import format from 'date-fns/format'
 import { registerLocale } from 'react-datepicker'
 import sv from 'date-fns/locale/sv'
