@@ -15,6 +15,7 @@ import { useBookings } from '../../hooks/useBookings'
 import { useFormikContext } from 'formik'
 import { IFormValues } from '../../interfaces/FormValues'
 import { registerLocale } from 'react-datepicker'
+import { useTranslation } from 'react-i18next'
 
 registerLocale('sv', sv)
 
@@ -33,6 +34,7 @@ export const CustomDatePicker: FC<DatePickerProps> = ({
   const [date, setDate] = useState<Date | null>(null)
   const { values, setValues } = useFormikContext<IFormValues>()
 
+  const { t, i18n } = useTranslation()
   const handleChange = (date: Date) => {
     setDate(date)
 
@@ -65,12 +67,11 @@ export const CustomDatePicker: FC<DatePickerProps> = ({
       disabled={disabled}
       id="date"
       name="date"
-      placeholderText="Klicka för att se lediga datum"
       showTimeSelect
       startOpen={inline ? true : false}
       inline={inline}
-      locale="sv"
-      timeCaption="klockslag"
+      locale={i18n.language}
+      timeCaption={t('time')}
       dateFormat="yyyy-MM-dd p"
       filterDate={filterDates}
       includeTimes={[

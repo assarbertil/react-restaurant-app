@@ -1,0 +1,27 @@
+{
+  "common": {
+    "welcome": "Welcome to Group 12",
+    "logo": "logo",
+    "open": "Our new Restaurant has open!",
+    "book": "Book a table",
+    "booking": "Book",
+    "contact": "Contact",
+    "guests": "How many guests",
+    "date": "Date",
+    "contactInformation": "Contact information",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phoneNumber": "Phone number",
+    "time": "Time",
+    "gdpr": "Do you approve us saving your information?",
+    "sent": "Your booking has been sent!",
+    "thanks": "Thanks for booking,",
+    "booked": "You have booked",
+    "when": "on the",
+    "for": "for",
+    "person": "people.",
+    "bookRef": "Booking number:",
+    "back": "Back to start",
+    "at": "at"
+  }
+}

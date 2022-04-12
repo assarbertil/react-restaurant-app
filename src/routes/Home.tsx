@@ -1,6 +1,7 @@
 import { styled } from '../stitches.config'
 import { Text, Button } from '../components/primitives'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 const BackgroundContainer = styled('section', {
   backgroundImage: 'url(img/steak.jpg)',
   backgroundPosition: 'center',
@@ -13,6 +14,7 @@ const BackgroundContainer = styled('section', {
 })
 
 export const Home = () => {
+  const { t } = useTranslation()
   return (
     <div>
       <BackgroundContainer>
@@ -21,10 +23,10 @@ export const Home = () => {
           as="h1"
           css={{ fontSize: '4.5rem', textShadow: '0 4px 16px black' }}
         >
-          Välkommen till Group 12
+          {t('welcome')}
         </Text>
         <Text type="title1" as="h2" css={{ textShadow: '0 4px 16px black' }}>
-          Vår nya restaurang har öppnat!
+          {t('open')}
         </Text>
         <Link to="/boka">
           <Button
@@ -37,7 +39,7 @@ export const Home = () => {
               display: 'inline-block'
             }}
           >
-            Boka bord
+            {t('book')}
           </Button>
         </Link>
       </BackgroundContainer>

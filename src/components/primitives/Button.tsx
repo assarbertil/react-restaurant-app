@@ -20,7 +20,8 @@ export const Button = styled('button', {
         border: '1px solid $secondary',
         color: '$secondary',
         background: 'transparent'
-      }
+      },
+      ghost: { border: 0, background: 'transparent' }
     },
 
     size: {
