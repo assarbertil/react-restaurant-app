@@ -1,4 +1,3 @@
-
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -18,7 +17,6 @@ const HeaderElement = styled('header', {
 })
 
 export const Header = () => {
-
   const { t, i18n } = useTranslation()
 
   return (
@@ -27,15 +25,32 @@ export const Header = () => {
         <Link to="/">
           <img src="img/logo.png" alt={t('logo')} height={96} width={96} />
         </Link>
-        <div>
+
+        <Group>
           <Link to="/boka">
             <Button as="span" variant="tertiary" size="large">
               {t('book')}
             </Button>
           </Link>
-          <Button onClick={() => i18n.changeLanguage(i18n.language !== 'sv' ? 'sv' : 'en')} variant='ghost'>{i18n.language === 'sv' ? <Ukflag height={20} width={40} /> : <Svflag height={20} width={40} />}</Button>
-        </div>
+          <Button
+            onClick={() =>
+              i18n.changeLanguage(i18n.language !== 'sv' ? 'sv' : 'en')
+            }
+            variant="ghost"
+          >
+            {i18n.language === 'sv' ? (
+              <Ukflag height={20} width={40} />
+            ) : (
+              <Svflag height={20} width={40} />
+            )}
+          </Button>
+        </Group>
       </HeaderElement>
     </Container>
   )
 }
+
+const Group = styled('div', {
+  display: 'flex',
+  alignItems: 'center'
+})
