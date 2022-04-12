@@ -5,6 +5,7 @@ import { globalCss } from 'stitches.config'
 import { Contact } from './routes/Contact'
 import { Booking } from './routes/Booking'
 import { Admin } from 'routes/Admin'
+import './i18n';
 
 const globalStyles = globalCss({
   '*': {

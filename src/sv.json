@@ -1,0 +1,27 @@
+{
+  "common": {
+    "welcome": "Välkommen till Group 12",
+    "logo": "logga",
+    "open": "Vår nya restaurang har öppnat!",
+    "book": "Boka bord",
+    "booking": "Boka",
+    "contact": "Kontakt",
+    "guests": "Hur många gäster",
+    "date": "Datum",
+    "contactInformation": "Kontaktuppgifter",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "phoneNumber": "Telefonnummer",
+    "time": "Klockslag",
+    "gdpr": "Godkänner du att vi sparar dina uppgifter?",
+    "sent": "Din bokning har skickats!",
+    "thanks": "Tack för din bokning,",
+    "booked": "Du har bokat",
+    "when": "den",
+    "for": "för",
+    "person": "personer.",
+    "bookRef": "Bokningsreferens:",
+    "back": "Tillbaka till start",
+    "at": "klockan"
+  }
+}

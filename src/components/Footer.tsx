@@ -1,6 +1,7 @@
 import { styled } from '../stitches.config'
 import { Link } from 'react-router-dom'
 import { Text } from './primitives/Text'
+import { useTranslation } from 'react-i18next'
 
 const FooterElement = styled('header', {
   display: 'flex',
@@ -11,16 +12,17 @@ const FooterElement = styled('header', {
 })
 
 export const Footer = () => {
+  const { t } = useTranslation()
   return (
     <FooterElement>
       <Link to="/kontakt">
         <Text type="large" css={{ color: '$secondary' }}>
-          Kontakt
+          {t('contact')}
         </Text>
       </Link>
       <Link to="/boka">
         <Text type="large" css={{ color: '$secondary', marginLeft: '2rem' }}>
-          Boka bord
+          {t('book')}
         </Text>
       </Link>
       <Link to="/admin">

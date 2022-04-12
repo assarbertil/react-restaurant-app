@@ -15,18 +15,20 @@ import { IFormValues } from '@/interfaces/FormValues'
 import { postBooking } from 'lib'
 import { useState } from 'react'
 import { format } from 'date-fns'
-import sv from 'date-fns/locale/sv'
+import { sv, enGB } from 'date-fns/locale'
 import { registerLocale } from 'react-datepicker'
 import { Link } from 'react-router-dom'
 import { INewBooking } from '@/interfaces/NewBooking'
+import { useTranslation } from 'react-i18next'
 
 registerLocale('sv', sv)
+registerLocale('en', enGB)
 
 export const BookingForm = () => {
   const [submitted, setSubmitted] = useState(false)
   const [responseId, setResponseId] = useState('')
   const { data: bookedDates, error, isLoading, mutate } = useBookings()
-
+  const { t, i18n } = useTranslation()
   return (
     <Formik
       initialValues={{
@@ -64,7 +66,7 @@ export const BookingForm = () => {
         <>
           {!submitted ? (
             <Form>
-              <FieldGroup name="Hur många gäster">
+              <FieldGroup name={t('guests')}>
                 <RadioButtonContainer
                   role="group"
                   aria-labelledby="my-radio-group"
@@ -120,28 +122,28 @@ export const BookingForm = () => {
                 </RadioButtonContainer>
               </FieldGroup>
 
-              <FieldGroup name="Datum">
+              <FieldGroup name={t('date')}>
                 <CustomDatePicker />
               </FieldGroup>
 
-              <FieldGroup name="Kontaktuppgifter">
+              <FieldGroup name={t('contactInformation')}>
                 <InputContainer>
                   <Input
-                    label="Förnamn"
+                    label={t('firstName')}
                     id="name"
                     name="name"
                     type="text"
-                    placeholder="Förnamn"
+                    placeholder={t('firstName')}
                     isError={errors.name && touched.name ? true : false}
                     errorMsg={errors.name}
                   />
 
                   <Input
-                    label="Efternamn"
+                    label={t('lastName')}
                     id="lastname"
                     name="lastname"
                     type="text"
-                    placeholder="Efternamn"
+                    placeholder={t('lastName')}
                     isError={errors.lastname && touched.lastname ? true : false}
                     errorMsg={errors.lastname}
                   />
@@ -157,7 +159,7 @@ export const BookingForm = () => {
                   />
 
                   <Input
-                    label="Telefonnummer"
+                    label={t('phoneNumber')}
                     id="phone"
                     name="phone"
                     type="text"
@@ -177,7 +179,7 @@ export const BookingForm = () => {
               </Text>
               <RadioButtonContainer>
                 <Checkbox
-                  label="Godkänner du att vi sparar dina uppgifter?"
+                  label={t('gdpr')}
                   id="gdpr"
                   name="gdpr"
                   value={true}
@@ -192,23 +194,23 @@ export const BookingForm = () => {
                 variant="secondary"
                 css={{ marginTop: '2rem' }}
               >
-                Boka
+                {t('booking')}
               </Button>
             </Form>
           ) : (
             <div>
               <Text as="h3" type="title3">
-                Din bokning har skickats!
+                {t('sent')}
               </Text>
-              <Text>Tack för din bokning, {values.name}!</Text>
+              <Text>{t('thanks')} {values.name}!</Text>
               <Text>
-                Du har bokat{' '}
-                {format(new Date(values.date), 'cccc', { locale: sv })} den{' '}
-                {format(new Date(values.date), 'do LLLL', { locale: sv })}
-                {' klockan '}
-                {values.time} för {values.numberOfGuests} personer.
+                {t('booked')}{' '}
+                {format(new Date(values.date), 'cccc', { locale: i18n.language === 'sv' ? sv : enGB })} {t('when')}{' '}
+                {format(new Date(values.date), 'do LLLL', { locale: i18n.language === 'sv' ? sv : enGB })}
+                {' '}{t('at')}{' '}
+                {values.time} {t('for')} {values.numberOfGuests} {t('person')}
               </Text>
-              <Text>Bokningsreferens: {responseId}</Text>
+              <Text>{t('bookRef')} {responseId}</Text>
               <Link to="/">
                 <Text
                   css={{
@@ -219,7 +221,7 @@ export const BookingForm = () => {
                   }}
                   as="span"
                 >
-                  Tillbaka till hem
+                  {t('back')}
                 </Text>
               </Link>
             </div>
@@ -244,3 +246,7 @@ const InputContainer = styled('div', {
   flexDirection: 'column',
   rowGap: '1rem'
 })
+function en(arg0: string, en: any) {
+  throw new Error('Function not implemented.')
+}
+
