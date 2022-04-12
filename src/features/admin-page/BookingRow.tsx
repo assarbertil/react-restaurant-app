@@ -7,7 +7,7 @@ import { deleteBooking, putBooking } from 'lib'
 import { useBookings } from 'hooks/useBookings'
 import CustomDatePicker from 'features/booking-form/DatePicker'
 import { Field, Formik } from 'formik'
-import { TableRow } from './TableParts'
+import { TableInput, TableRow } from './TableParts'
 import { Button } from 'components/primitives'
 
 const Column = styled('div', {
@@ -56,11 +56,11 @@ export const BookingRow: FC<BookingRowProps> = ({ booking }) => {
             <CustomDatePicker
               disabled={!editing}
               inline={false}
-              customStart={new Date(booking.date + 'T' + booking.time)}
+              value={new Date(values.date + 'T' + values.time)}
             />
           </Column>
           <Column>
-            <Field
+            <TableInput
               disabled={!editing}
               type="number"
               min={1}

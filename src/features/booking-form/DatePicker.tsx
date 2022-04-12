@@ -20,13 +20,13 @@ registerLocale('sv', sv)
 
 interface DatePickerProps {
   inline?: boolean
-  customStart?: Date
+  value?: Date
   disabled?: boolean
 }
 
 export const CustomDatePicker: FC<DatePickerProps> = ({
   inline = true,
-  customStart,
+  value,
   disabled = false
 }) => {
   const { data: bookings } = useBookings()
@@ -60,7 +60,7 @@ export const CustomDatePicker: FC<DatePickerProps> = ({
 
   return (
     <DatePicker
-      selected={customStart ? customStart : date}
+      selected={value ? value : date}
       onChange={handleChange}
       disabled={disabled}
       id="date"
