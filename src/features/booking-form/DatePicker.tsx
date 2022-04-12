@@ -7,7 +7,7 @@ import {
   filterBookingsByDay
 } from 'lib'
 import setMinutes from 'date-fns/setMinutes'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import sv from 'date-fns/locale/sv'
@@ -18,7 +18,17 @@ import { registerLocale } from 'react-datepicker'
 
 registerLocale('sv', sv)
 
-export const CustomDatePicker = () => {
+interface DatePickerProps {
+  inline?: boolean
+  value?: Date
+  disabled?: boolean
+}
+
+export const CustomDatePicker: FC<DatePickerProps> = ({
+  inline = true,
+  value,
+  disabled = false
+}) => {
   const { data: bookings } = useBookings()
   const [date, setDate] = useState<Date | null>(null)
   const { values, setValues } = useFormikContext<IFormValues>()
@@ -50,14 +60,15 @@ export const CustomDatePicker = () => {
 
   return (
     <DatePicker
-      selected={date}
+      selected={value ? value : date}
       onChange={handleChange}
+      disabled={disabled}
       id="date"
       name="date"
       placeholderText="Klicka för att se lediga datum"
       showTimeSelect
-      startOpen
-      inline
+      startOpen={inline ? true : false}
+      inline={inline}
       locale="sv"
       timeCaption="klockslag"
       dateFormat="yyyy-MM-dd p"

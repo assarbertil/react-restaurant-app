@@ -1,10 +1,16 @@
-import { Input, RadioButton, Button, Text } from '../../components/primitives'
-import { useBookings } from '../../hooks/useBookings'
+import {
+  Input,
+  RadioButton,
+  Button,
+  Text,
+  Checkbox
+} from 'components/primitives'
+import { useBookings } from 'hooks/useBookings'
 import { FieldGroup } from './FieldGroup'
 import { styled } from 'stitches.config'
 import { CustomDatePicker } from './DatePicker'
-import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
+import { BookingSchema } from './BookingSchema'
 import { IFormValues } from '@/interfaces/FormValues'
 import { postBooking } from 'lib'
 import { useState } from 'react'
@@ -12,34 +18,13 @@ import { format } from 'date-fns'
 import sv from 'date-fns/locale/sv'
 import { registerLocale } from 'react-datepicker'
 import { Link } from 'react-router-dom'
+import { INewBooking } from '@/interfaces/NewBooking'
 
 registerLocale('sv', sv)
 
-const BookingSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Ange ett korrekt förnamn, minst 2 bokstäver')
-    .max(20, 'Ange ett korrekt förnamn, högst 20 bokstäver')
-    .required('Du måste ange ditt förnamn'),
-  lastname: Yup.string()
-    .min(2, 'Ange ett korrekt efternamn, minst 2 bokstäver')
-    .max(20, 'Ange ett korrekt efternamn, högst 20 bokstäver')
-    .required('Du måste ange ditt efternamn'),
-  email: Yup.string()
-    .email('Ange en korrekt email')
-    .required('Du måste ange en email'),
-  phone: Yup.string()
-    .matches(/^\+?\d+$/, 'Ange ett korrekt telefonnummer, ex: +4612345678')
-    .min(9, 'Ange ett korrekt telefonnummer, minst 10 siffror')
-    .max(12, 'Ange ett korrekt telefonnummer, högst 10 siffror')
-    .required('Du måste ange ditt telefonnummer'),
-  numberOfGuests: Yup.number()
-    .min(1, 'Ange hur många ni är i sällskapet, minst 1 person')
-    .max(6, 'Ange hur många ni är i sällskapet, minst 1 person')
-    .required('Ange hur många ni är i sällskapet, minst 1 person')
-})
-
 export const BookingForm = () => {
   const [submitted, setSubmitted] = useState(false)
+  const [responseId, setResponseId] = useState('')
   const { data: bookedDates, error, isLoading, mutate } = useBookings()
 
   return (
@@ -51,11 +36,13 @@ export const BookingForm = () => {
         name: '',
         lastname: '',
         email: '',
-        phone: ''
+        phone: '',
+        gdpr: false
       }}
       validationSchema={BookingSchema}
       onSubmit={async (values: IFormValues) => {
-        const booking = {
+        const booking: INewBooking = {
+          restaurantId: process.env.REACT_APP_RESTAURANT_ID!,
           date: values.date,
           time: values.time,
           numberOfGuests: values.numberOfGuests,
@@ -67,8 +54,9 @@ export const BookingForm = () => {
           }
         }
 
-        postBooking(booking)
-        alert(JSON.stringify(booking, null, 2))
+        const response = await postBooking(booking)
+
+        setResponseId(response.insertedId)
         setSubmitted(true)
       }}
     >
@@ -117,10 +105,19 @@ export const BookingForm = () => {
                     id="6"
                     value={6}
                   />
+                  {errors.numberOfGuests && touched.numberOfGuests && (
+                    <Text
+                      css={{
+                        color: 'red',
+                        position: 'absolute',
+                        bottom: '-1.25rem'
+                      }}
+                      type="small"
+                    >
+                      {errors.numberOfGuests}
+                    </Text>
+                  )}
                 </RadioButtonContainer>
-                {errors.numberOfGuests && touched.numberOfGuests ? (
-                  <div style={{ color: 'red' }}>{errors.numberOfGuests}</div>
-                ) : null}
               </FieldGroup>
 
               <FieldGroup name="Datum">
@@ -171,6 +168,24 @@ export const BookingForm = () => {
                 </InputContainer>
               </FieldGroup>
 
+              <Text
+                css={{ marginTop: '2rem', marginBottom: '0.25rem' }}
+                as="h2"
+                type="title4"
+              >
+                GDPR
+              </Text>
+              <RadioButtonContainer>
+                <Checkbox
+                  label="Godkänner du att vi sparar dina uppgifter?"
+                  id="gdpr"
+                  name="gdpr"
+                  value={true}
+                  isError={errors.gdpr && touched.gdpr ? true : false}
+                  errorMsg={errors.gdpr}
+                />
+              </RadioButtonContainer>
+
               <Button
                 type="submit"
                 size="large"
@@ -193,6 +208,7 @@ export const BookingForm = () => {
                 {' klockan '}
                 {values.time} för {values.numberOfGuests} personer.
               </Text>
+              <Text>Bokningsreferens: {responseId}</Text>
               <Link to="/">
                 <Text
                   css={{
@@ -216,7 +232,11 @@ export const BookingForm = () => {
 
 const RadioButtonContainer = styled('div', {
   display: 'flex',
-  columnGap: '1rem'
+  columnGap: '1rem',
+  rowGap: '1rem',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+  position: 'relative'
 })
 
 const InputContainer = styled('div', {

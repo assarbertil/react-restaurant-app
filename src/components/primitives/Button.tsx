@@ -16,7 +16,11 @@ export const Button = styled('button', {
     variant: {
       primary: { background: '$primary' },
       secondary: { background: '$secondary', color: '$background' },
-      tertiary: { border: '1px solid $secondary', color: '$secondary' }
+      tertiary: {
+        border: '1px solid $secondary',
+        color: '$secondary',
+        background: 'transparent'
+      }
     },
 
     size: {

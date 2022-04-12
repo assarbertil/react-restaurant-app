@@ -1,8 +1,7 @@
-import Tool from '../components/icons/Tool'
 import { styled } from 'stitches.config'
 import { useBookings } from '../hooks/useBookings'
-import Trashcan from '../components/icons/Trashcan'
-import { deleteBooking } from 'lib/deleteBooking'
+import { BookingRow } from 'features/admin-page/BookingRow'
+import { TableHeader } from 'features/admin-page/TableParts'
 
 export const Admin = () => {
   const { data, error, isLoading, mutate } = useBookings()
@@ -10,71 +9,27 @@ export const Admin = () => {
   data && console.log(data)
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <Th>ID</Th>
-          <Th>Datum</Th>
-          <Th>Tid</Th>
-          <Th>Kund ID</Th>
-          <Th>Personer</Th>
-          <Th></Th>
-          <Th></Th>
-        </tr>
-      </thead>
-      <tbody>
-        {data &&
-          data.map((booking: any) => (
-            <tr key={booking._id}>
-              <Td>{booking._id}</Td>
-              <Td>{booking.date}</Td>
-              <Td>{booking.time}</Td>
-              <Td>{booking.customerId}</Td>
-              <Td>{booking.numberOfGuests}</Td>
-              <Td>
-                <Tool
-                  css={{
-                    color: '$secondary'
-                  }}
-                />
-              </Td>
-              <Td>
-                <Trashcan
-                  css={{
-                    color: '$secondary',
-                    '&:hover': { color: '$primary' }
-                  }}
-                  onClick={() => {
-                    const newData = data.filter(b => b._id !== booking._id)
+    <>
+      <TableHeader>
+        <Column>Boknings-ID</Column>
+        <Column>Kund-ID</Column>
+        <Column>Datum &amp; Tid</Column>
+        <Column>Personer</Column>
+        <Column></Column>
+        <Column></Column>
+      </TableHeader>
 
-                    deleteBooking(booking._id)
-                    mutate(newData, {
-                      optimisticData: newData,
-                      rollbackOnError: true,
-                      revalidate: false
-                    })
-                  }}
-                />
-              </Td>
-            </tr>
-          ))}
-      </tbody>
-    </Table>
+      {data &&
+        data.map((booking: any) => (
+          <BookingRow booking={booking} key={booking._id} />
+        ))}
+    </>
   )
 }
 
-const Table = styled('table', {
-  margin: '8rem auto 0 auto'
-})
-
-const Th = styled('th', {
+const Column = styled('div', {
   fontWeight: 400,
   color: '$secondary',
-  padding: '1rem',
-  textAlign: 'left'
-})
-
-const Td = styled('td', {
   padding: '1rem',
   textAlign: 'left'
 })

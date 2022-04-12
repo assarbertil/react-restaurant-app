@@ -31,11 +31,6 @@ export const { styled, globalCss } = createStitches({
       large: '1.125rem',
       regular: '1rem',
       small: '0.875rem'
-    },
-
-    space: {
-      4: 4,
-      8: 8
     }
   },
 
