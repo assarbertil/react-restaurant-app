@@ -24,6 +24,9 @@
     "person": "personer.",
     "bookRef": "Bokningsreferens:",
     "back": "Tillbaka till start",
-    "at": "klockan"
+    "at": "klockan",
+    "opening1": "Måndag-Torsdag",
+    "opening2": "Fredag-Lördag",
+    "opening3": "Söndag"
   }
 }

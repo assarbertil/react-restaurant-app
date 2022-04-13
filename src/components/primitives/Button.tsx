@@ -9,7 +9,8 @@ export const Button = styled('button', {
   cursor: 'pointer',
 
   '&:hover': {
-    opacity: 0.9
+    filter: 'brightness(1.1)',
+    transform: 'scale(1.05)'
   },
 
   variants: {

@@ -68,3 +68,7 @@ body {
 .react-datepicker__time-container .react-datepicker__time {
   background-color: var(--colors-foreground) !important;
 }
+
+.react-datepicker {
+  font-family: var(--fonts-body) !important;
+}

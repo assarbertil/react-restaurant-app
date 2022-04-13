@@ -24,6 +24,9 @@
     "person": "people.",
     "bookRef": "Booking number:",
     "back": "Back to start",
-    "at": "at"
+    "at": "at",
+    "opening1": "Monday-Thursday",
+    "opening2": "Friday-Saturday",
+    "opening3": "Sunday"
   }
 }
