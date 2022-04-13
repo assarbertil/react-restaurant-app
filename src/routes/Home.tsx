@@ -21,11 +21,11 @@ export const Home = () => {
         <Text
           type="title1"
           as="h1"
-          css={{ fontSize: '4.5rem', textShadow: '0 4px 16px black' }}
+          css={{ textShadow: '0 4px 16px black', '@md': { fontSize: '4.5rem' } }}
         >
           {t('welcome')}
         </Text>
-        <Text type="title1" as="h2" css={{ textShadow: '0 4px 16px black' }}>
+        <Text type="title2" as="h2" css={{ textShadow: '0 4px 16px black', '@md': { fontSize: '$title1' } }}>
           {t('open')}
         </Text>
         <Link to="/boka">
