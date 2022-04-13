@@ -25,13 +25,13 @@ export const Header = () => {
         <Link to="/">
           <img src="img/logo.png" alt={t('logo')} height={96} width={96} />
         </Link>
-
         <Group>
           <Link to="/boka">
             <Button as="span" variant="tertiary" size="large">
               {t('book')}
             </Button>
           </Link>
+
           <Button
             onClick={() =>
               i18n.changeLanguage(i18n.language !== 'sv' ? 'sv' : 'en')
