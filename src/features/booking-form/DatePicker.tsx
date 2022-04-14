@@ -79,12 +79,12 @@ export const CustomDatePicker: FC<DatePickerProps> = ({
     return (
       date > currentDate &&
       totalBookings +
-        Math.ceil(
-          (values.numberOfGuests > 6
-            ? values.customNumberOfGuests
-            : values.numberOfGuests) / 6
-        ) <=
-        30
+      Math.ceil(
+        (values.numberOfGuests > 6
+          ? values.customNumberOfGuests
+          : values.numberOfGuests) / 6
+      ) <=
+      30
     )
   }
 

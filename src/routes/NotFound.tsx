@@ -14,7 +14,7 @@ export const NotFound = () => {
         <Four aria-hidden>4</Four>
       </NotFoundContainer>
       <Text type="large" css={{ color: '$secondary' }}>
-        Sidan kan inte hittas
+        {t('notFound')}
       </Text>
       <Link to="/">
         <Text

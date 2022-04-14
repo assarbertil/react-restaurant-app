@@ -26,7 +26,8 @@
     "at": "klockan",
     "opening1": "Måndag-Torsdag",
     "opening2": "Fredag-Lördag",
-    "opening3": "Söndag"
+    "opening3": "Söndag",
+    "notFound": "Sidan kan inte hittas"
   },
   "validation": {
     "firstNameMin": "Ange ett korrekt förnamn, minst 2 bokstäver",
