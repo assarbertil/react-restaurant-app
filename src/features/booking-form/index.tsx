@@ -286,6 +286,70 @@ export const BookingForm = () => {
                   </InputContainer>
                 </FieldGroup>
 
+                  <Input
+                    label={t('phoneNumber')}
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    placeholder="ex: +4612345678"
+                    isError={errors.phone && touched.phone ? true : false}
+                    errorMsg={errors.phone}
+                  />
+                </InputContainer>
+              </FieldGroup>
+
+              <Text
+                css={{ marginTop: '2rem', marginBottom: '0.25rem' }}
+                as="h2"
+                type="title4"
+              >
+                GDPR
+              </Text>
+              <RadioButtonContainer>
+                <Checkbox
+                  label={t('gdpr')}
+                  id="gdpr"
+                  name="gdpr"
+                  value={true}
+                  isError={errors.gdpr && touched.gdpr ? true : false}
+                  errorMsg={errors.gdpr}
+                />
+              </RadioButtonContainer>
+
+              <Button
+                type="submit"
+                size="large"
+                variant="secondary"
+                css={{ marginTop: '2rem' }}
+              >
+                {t('booking')}
+              </Button>
+            </Form>
+          ) : (
+            <div>
+              <Text as="h3" type="title3">
+                {t('sent')}
+              </Text>
+              <Text>
+                {t('thanks')} {values.name}!
+              </Text>
+              <Text>
+                {t('booked')}{' '}
+                {format(new Date(values.date), 'cccc', {
+                  locale: i18n.language === 'sv' ? sv : enGB
+                })}{' '}
+                {t('when')}{' '}
+                {format(new Date(values.date), 'do LLLL', {
+                  locale: i18n.language === 'sv' ? sv : enGB
+                })}{' '}
+                {t('at')} {values.time} {t('for')}{' '}
+                {values.numberOfGuests > 6
+                  ? values.customNumberOfGuests
+                  : values.numberOfGuests}{' '}
+                {t('person')}
+              </Text>
+
+              <Link to="/">
                 <Text
                   css={{ marginTop: '2rem', marginBottom: '0.25rem' }}
                   as="h2"
