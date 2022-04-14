@@ -1,20 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-
 import { styled } from '../stitches.config'
 import { Container } from './Container'
 import Svflag from './icons/Svflag'
 import Ukflag from './icons/Ukflag'
 import { Button } from './primitives/Button'
-import { Text } from './primitives/Text'
-
-const HeaderElement = styled('header', {
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: '1rem'
-})
 
 export const Header = () => {
   const { t, i18n } = useTranslation()
@@ -32,6 +22,7 @@ export const Header = () => {
             </Button>
           </Link>
 
+          {/* Show other language's button */}
           <Button
             onClick={() =>
               i18n.changeLanguage(i18n.language !== 'sv' ? 'sv' : 'en')
@@ -49,6 +40,15 @@ export const Header = () => {
     </Container>
   )
 }
+
+// Styled components below
+const HeaderElement = styled('header', {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '1rem'
+})
 
 const Group = styled('div', {
   display: 'flex',

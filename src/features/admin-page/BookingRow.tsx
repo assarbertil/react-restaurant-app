@@ -1,20 +1,14 @@
-import { IBooking } from '@/interfaces/Booking'
+import { IBooking } from 'interfaces/Booking'
 import { FC, useState } from 'react'
-import { styled } from 'stitches.config'
-import Trashcan from '../../components/icons/Trashcan'
-import Tool from '../../components/icons/Tool'
+import Trashcan from 'components/icons/Trashcan'
+import Tool from 'components/icons/Tool'
 import { deleteBooking, putBooking } from 'lib'
 import { useBookings } from 'hooks/useBookings'
 import CustomDatePicker from 'features/booking-form/DatePicker'
-import { Field, Formik } from 'formik'
-import { TableInput, TableRow } from './TableParts'
+import { Formik } from 'formik'
+import { Column, TableInput, TableRow } from './TableElements'
 import { Button } from 'components/primitives'
 import { motion } from 'framer-motion'
-
-const Column = styled('div', {
-  padding: '1rem',
-  textAlign: 'left'
-})
 
 interface BookingRowProps {
   booking: IBooking
@@ -22,10 +16,13 @@ interface BookingRowProps {
 
 export const BookingRow: FC<BookingRowProps> = ({ booking }) => {
   const [editing, setEditing] = useState(false)
-  const { data, error, isLoading, mutate } = useBookings()
+  const { data, mutate } = useBookings()
 
+  // If booking hasnt arrived yet, dont render
   if (!data) return <div>Loading...</div>
 
+  // Every row in admin table is a formik form
+  // This makes it easy to post new bookings using values from the form
   return (
     <Formik
       initialValues={{
@@ -43,13 +40,14 @@ export const BookingRow: FC<BookingRowProps> = ({ booking }) => {
           customerId: booking.customerId
         }
 
-        const response = await putBooking(updatedBooking)
-        console.log(response)
+        await putBooking(updatedBooking)
+
         setEditing(false)
         mutate()
       }}
     >
       {({ values }) => (
+        // Fading animation when a row renders
         <motion.div
           animate={{ opacity: 1, transition: { duration: 0.5 } }}
           initial={{ opacity: 0 }}
@@ -79,7 +77,8 @@ export const BookingRow: FC<BookingRowProps> = ({ booking }) => {
                 css={{
                   cursor: 'pointer',
                   color: '$secondary',
-                  marginRight: '1rem'
+                  marginRight: '1rem',
+                  '&:hover': { color: '$foreground' }
                 }}
               />
               <Trashcan
@@ -89,10 +88,11 @@ export const BookingRow: FC<BookingRowProps> = ({ booking }) => {
                   '&:hover': { color: '$primary' }
                 }}
                 onClick={() => {
-                  const newData = data.filter(b => b._id !== booking._id)
-
                   deleteBooking(booking._id)
 
+                  // Basically asks for a refetch of the data
+                  // Also updates the UI immediately
+                  const newData = data.filter(b => b._id !== booking._id) // Filter out the deleted booking
                   mutate(newData, {
                     optimisticData: newData,
                     rollbackOnError: true,

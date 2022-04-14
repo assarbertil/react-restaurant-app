@@ -1,13 +1,13 @@
 import { styled } from 'stitches.config'
 import { useBookings } from 'hooks/useBookings'
 import { BookingRow } from 'features/admin-page/BookingRow'
-import { TableHeader } from 'features/admin-page/TableParts'
+import { TableHeader } from 'features/admin-page/TableElements'
 import { Button } from 'components/primitives'
 import { useState } from 'react'
 import { BookingForm } from 'features/booking-form'
 
 export const Admin = () => {
-  const { data, error, isLoading, mutate } = useBookings()
+  const { data } = useBookings()
   const [adding, setAdding] = useState(false)
 
   data && console.log(data)

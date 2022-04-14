@@ -5,34 +5,32 @@ import {
   Text,
   Checkbox
 } from 'components/primitives'
-import { useBookings } from 'hooks/useBookings'
 import { FieldGroup } from './FieldGroup'
 import { styled } from 'stitches.config'
 import { CustomDatePicker } from './DatePicker'
 import { Formik, Form } from 'formik'
 import { BookingSchema } from './BookingSchema'
 import { IFormValues } from '@/interfaces/FormValues'
-import { postBooking } from 'lib'
+import { postBooking, sleep } from 'lib'
 import { useState } from 'react'
 import { format } from 'date-fns'
 import { sv, enGB } from 'date-fns/locale'
 import { registerLocale } from 'react-datepicker'
 import { Link } from 'react-router-dom'
-import { INewBooking } from '@/interfaces/NewBooking'
 import { useTranslation } from 'react-i18next'
 
+// Makes locales usable
 registerLocale('sv', sv)
 registerLocale('en', enGB)
 
 export const BookingForm = () => {
   const [submitted, setSubmitted] = useState(false)
-  const [responseId, setResponseId] = useState('')
-  const { data: bookedDates, error, isLoading, mutate } = useBookings()
   const { t, i18n } = useTranslation()
   return (
     <Formik
       initialValues={{
-        numberOfGuests: 0,
+        numberOfGuests: 1,
+        customNumberOfGuests: 7,
         date: '',
         time: '',
         name: '',
@@ -43,22 +41,85 @@ export const BookingForm = () => {
       }}
       validationSchema={BookingSchema}
       onSubmit={async (values: IFormValues) => {
-        const booking: INewBooking = {
-          restaurantId: process.env.REACT_APP_RESTAURANT_ID!,
-          date: values.date,
-          time: values.time,
-          numberOfGuests: values.numberOfGuests,
-          customer: {
-            name: values.name,
-            lastname: values.lastname,
-            email: values.email,
-            phone: values.phone.toString()
+        // If the booking only requires one table, send a simple post request
+        if (values.numberOfGuests <= 6) {
+          await postBooking({
+            restaurantId: process.env.REACT_APP_RESTAURANT_ID!,
+            date: values.date,
+            time: values.time,
+            numberOfGuests: values.numberOfGuests,
+            customer: {
+              name: values.name,
+              lastname: values.lastname,
+              email: values.email,
+              phone: values.phone.toString()
+            }
+          })
+        }
+        // If the booking requires multiple tables, send one request for each
+        else {
+          for (
+            let i = 0;
+            i <
+            Math.ceil(
+              (values.numberOfGuests > 6
+                ? values.customNumberOfGuests
+                : values.numberOfGuests) / 6
+            );
+            i++
+          ) {
+            // All tables are guaranteed to be filled except for the last
+            // This figures out the amount of people who are sitting at the last table
+            if (
+              i ===
+              Math.ceil(
+                (values.numberOfGuests > 6
+                  ? values.customNumberOfGuests
+                  : values.numberOfGuests) / 6
+              ) -
+                1
+            ) {
+              // This posts the last booking with the right amount of people
+              let peopleAtTheLastTable
+              // Checks if the last table is full
+              if (values.customNumberOfGuests % 6 === 0) {
+                peopleAtTheLastTable = 6
+              } else {
+                peopleAtTheLastTable = values.customNumberOfGuests % 6
+              }
+
+              await postBooking({
+                restaurantId: process.env.REACT_APP_RESTAURANT_ID!,
+                date: values.date,
+                time: values.time,
+                numberOfGuests: peopleAtTheLastTable,
+                customer: {
+                  name: values.name,
+                  lastname: values.lastname,
+                  email: values.email,
+                  phone: values.phone.toString()
+                }
+              })
+            } else {
+              // This part makes bookings for filled tables
+              await postBooking({
+                restaurantId: process.env.REACT_APP_RESTAURANT_ID!,
+                date: values.date,
+                time: values.time,
+                numberOfGuests: 6,
+                customer: {
+                  name: values.name,
+                  lastname: values.lastname,
+                  email: values.email,
+                  phone: values.phone.toString()
+                }
+              })
+            }
+
+            await sleep(0.4)
           }
         }
 
-        const response = await postBooking(booking)
-
-        setResponseId(response.insertedId)
         setSubmitted(true)
       }}
     >
@@ -107,6 +168,12 @@ export const BookingForm = () => {
                     id="6"
                     value={6}
                   />
+                  <RadioButton
+                    label="6+"
+                    name="numberOfGuests"
+                    id="7"
+                    value={7}
+                  />
                   {errors.numberOfGuests && touched.numberOfGuests && (
                     <Text
                       css={{
@@ -120,6 +187,18 @@ export const BookingForm = () => {
                     </Text>
                   )}
                 </RadioButtonContainer>
+
+                {values.numberOfGuests > 6 && (
+                  <Input
+                    type="number"
+                    name="customNumberOfGuests"
+                    id="customNumberOfGuests"
+                    isError={false}
+                    errorMsg="Hej"
+                    max={90}
+                    min={7}
+                  />
+                )}
               </FieldGroup>
 
               <FieldGroup name={t('date')}>
@@ -202,15 +281,25 @@ export const BookingForm = () => {
               <Text as="h3" type="title3">
                 {t('sent')}
               </Text>
-              <Text>{t('thanks')} {values.name}!</Text>
+              <Text>
+                {t('thanks')} {values.name}!
+              </Text>
               <Text>
                 {t('booked')}{' '}
-                {format(new Date(values.date), 'cccc', { locale: i18n.language === 'sv' ? sv : enGB })} {t('when')}{' '}
-                {format(new Date(values.date), 'do LLLL', { locale: i18n.language === 'sv' ? sv : enGB })}
-                {' '}{t('at')}{' '}
-                {values.time} {t('for')} {values.numberOfGuests} {t('person')}
+                {format(new Date(values.date), 'cccc', {
+                  locale: i18n.language === 'sv' ? sv : enGB
+                })}{' '}
+                {t('when')}{' '}
+                {format(new Date(values.date), 'do LLLL', {
+                  locale: i18n.language === 'sv' ? sv : enGB
+                })}{' '}
+                {t('at')} {values.time} {t('for')}{' '}
+                {values.numberOfGuests > 6
+                  ? values.customNumberOfGuests
+                  : values.numberOfGuests}{' '}
+                {t('person')}
               </Text>
-              <Text>{t('bookRef')} {responseId}</Text>
+
               <Link to="/">
                 <Text
                   css={{
@@ -246,7 +335,3 @@ const InputContainer = styled('div', {
   flexDirection: 'column',
   rowGap: '1rem'
 })
-function en(arg0: string, en: any) {
-  throw new Error('Function not implemented.')
-}
-
