@@ -22,8 +22,19 @@
     "when": "on the",
     "for": "for",
     "person": "people.",
-    "bookRef": "Booking number:",
     "back": "Back to start",
-    "at": "at"
+    "at": "at",
+    "opening1": "Monday-Thursday",
+    "opening2": "Friday-Saturday",
+    "opening3": "Sunday"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "phone": "Please enter a valid phone number",
+    "date": "Please enter a valid date",
+    "time": "Please enter a valid time",
+    "gdpr": "Please approve us saving your information",
+    "commenty": "t('validation:required')"
   }
 }

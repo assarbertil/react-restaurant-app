@@ -7,9 +7,11 @@ export const Button = styled('button', {
   textDecoration: 'none',
   fontFamily: '$body',
   cursor: 'pointer',
+  transition: 'all 0.2s ease-in-out',
 
   '&:hover': {
-    opacity: 0.9
+    filter: 'brightness(1.1)',
+    transform: 'scale(1.05)'
   },
 
   variants: {

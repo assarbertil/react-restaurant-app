@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-import { IBooking } from '@/interfaces/Booking'
+import { IBooking } from 'interfaces/Booking'
 
 export const putBooking = async (booking: IBooking) => {
   const { _id, date, time, numberOfGuests, customerId } = booking
@@ -16,5 +15,6 @@ export const putBooking = async (booking: IBooking) => {
       customerId: customerId
     }
   )
+
   return response.data
 }

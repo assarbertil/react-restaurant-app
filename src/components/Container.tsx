@@ -1,5 +1,6 @@
 import { styled } from '../stitches.config'
 
+// Component that limits the max width of the contents
 export const Container = styled('div', {
   marginLeft: 'auto',
   marginRight: 'auto',

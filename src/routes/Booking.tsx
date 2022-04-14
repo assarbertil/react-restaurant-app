@@ -1,6 +1,15 @@
-import { styled } from '../stitches.config'
-import { BookingForm } from '../features/booking-form'
-import { Container } from 'components/Container'
+import { styled } from 'stitches.config'
+import { BookingForm } from 'features/booking-form'
+
+export const Booking = () => {
+  return (
+    <BackgroundContainer>
+      <Center>
+        <BookingForm />
+      </Center>
+    </BackgroundContainer>
+  )
+}
 
 const BackgroundContainer = styled('section', {
   backgroundImage: 'url(img/steak-dark.jpg)',
@@ -20,13 +29,3 @@ const Center = styled('div', {
   padding: '1rem',
   '@sm': { maxWidth: 'max-content' }
 })
-
-export const Booking = () => {
-  return (
-    <BackgroundContainer>
-      <Center>
-        <BookingForm />
-      </Center>
-    </BackgroundContainer>
-  )
-}

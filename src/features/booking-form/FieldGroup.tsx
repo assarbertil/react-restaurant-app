@@ -1,11 +1,12 @@
 import { FC, ReactNode } from 'react'
-import { Text } from '../../components/primitives'
+import { Text } from 'components/primitives'
 
 interface FieldGroupProps {
   children: ReactNode
   name: string
 }
 
+// Used to group together parts of the booking form
 export const FieldGroup: FC<FieldGroupProps> = ({ children, name }) => {
   return (
     <div>

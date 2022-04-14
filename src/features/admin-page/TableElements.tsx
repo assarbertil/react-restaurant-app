@@ -1,6 +1,9 @@
 import { Field, Form } from 'formik'
 import { styled } from 'stitches.config'
 
+/**
+ * Components used in admin table
+ */
 export const TableHeader = styled('div', {
   margin: '8rem auto 0 auto',
   display: 'grid',
@@ -17,4 +20,9 @@ export const TableRow = styled(Form, {
 
 export const TableInput = styled(Field, {
   width: '100%'
+})
+
+export const Column = styled('div', {
+  padding: '1rem',
+  textAlign: 'left'
 })

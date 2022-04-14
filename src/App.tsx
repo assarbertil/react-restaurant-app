@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
-import { Layout } from './components/Layout'
-import { Home } from './routes/Home'
+import { Layout } from 'components/Layout'
+import { Home } from 'routes/Home'
 import { globalCss } from 'stitches.config'
-import { Contact } from './routes/Contact'
-import { Booking } from './routes/Booking'
+import { Contact } from 'routes/Contact'
+import { Booking } from 'routes/Booking'
 import { Admin } from 'routes/Admin'
-import './i18n';
+import { NotFound } from 'routes/NotFound'
+import './i18n'
 
 const globalStyles = globalCss({
   '*': {
@@ -22,10 +23,6 @@ const globalStyles = globalCss({
 
   a: {
     textDecoration: 'none'
-  },
-
-  '.react-datepicker__day--selected': {
-    backgroundColor: '$secondary !important'
   }
 })
 
@@ -39,6 +36,7 @@ function App() {
         <Route path="/boka" element={<Booking />} />
         <Route path="/kontakt" element={<Contact />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
   )

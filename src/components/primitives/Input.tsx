@@ -30,6 +30,8 @@ interface InputProps {
   id: string
   isError: boolean
   errorMsg: string | undefined
+  max?: number
+  min?: number
 }
 
 export const Input: FC<InputProps> = ({
@@ -39,7 +41,9 @@ export const Input: FC<InputProps> = ({
   isError,
   errorMsg,
   placeholder = '',
-  type = 'text'
+  type = 'text',
+  max,
+  min
 }) => {
   return (
     <InputContainer>
@@ -48,7 +52,14 @@ export const Input: FC<InputProps> = ({
           {label}
         </Text>
       </label>
-      <InputElement type={type} placeholder={placeholder} id={id} name={name} />
+      <InputElement
+        type={type}
+        placeholder={placeholder}
+        id={id}
+        name={name}
+        min={min}
+        max={max}
+      />
       {isError && (
         <Text
           type="small"
