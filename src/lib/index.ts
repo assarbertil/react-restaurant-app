@@ -1,3 +1,4 @@
+// This file is used to simplify importing of all functions from the lib folder
 export { countBookingsByDay } from './countBookingsByDay'
 export { checkSittingAvailability } from './checkSittingAvailability'
 export { filterBookingsByDay } from './filterBookingsByDay'

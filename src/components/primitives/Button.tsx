@@ -7,6 +7,7 @@ export const Button = styled('button', {
   textDecoration: 'none',
   fontFamily: '$body',
   cursor: 'pointer',
+  transition: 'all 0.2s ease-in-out',
 
   '&:hover': {
     filter: 'brightness(1.1)',

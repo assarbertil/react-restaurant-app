@@ -10,8 +10,6 @@ export const Admin = () => {
   const { data } = useBookings()
   const [adding, setAdding] = useState(false)
 
-  data && console.log(data)
-
   return (
     <>
       <Center>

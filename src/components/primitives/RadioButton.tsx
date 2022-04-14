@@ -43,6 +43,7 @@ const Label = styled('label', {
   borderRadius: 4,
   cursor: 'pointer',
   fontFamily: '$body',
+  transition: 'all 0.1s ease-in-out',
 
   '&:hover': {
     opacity: 0.9

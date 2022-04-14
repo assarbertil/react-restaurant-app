@@ -17,7 +17,7 @@ export const Header = () => {
         </Link>
         <Group>
           <Link to="/boka">
-            <Button as="span" variant="tertiary" size="large">
+            <Button variant="tertiary" size="large">
               {t('book')}
             </Button>
           </Link>

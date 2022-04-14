@@ -7,6 +7,13 @@ import { countBookingsByDay } from './countBookingsByDay'
 
 registerLocale('sv', sv)
 
+/**
+ * Check if a sitting has avbailabale slots
+ * @param time - The time of the sitting
+ * @param bookings - The bookings of the restaurant, recieved from the api
+ * @param numberOfGuests - The number of guests that attempting to book at a sitting
+ * @returns - True if the sitting has available slots, false if not
+ */
 export const checkSittingAvailability = (
   time: Date,
   bookings: IBooking[],
@@ -14,6 +21,7 @@ export const checkSittingAvailability = (
 ) => {
   let dateString = format(time, 'P', { locale: sv })
   let timeString = format(time, 'p', { locale: sv })
+
   let todaysBookings = filterBookingsByDay(bookings, dateString)
   let sumOfTodaysBookings = countBookingsByDay(todaysBookings)
 

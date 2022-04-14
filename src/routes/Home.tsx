@@ -1,26 +1,8 @@
-import { styled } from '../stitches.config'
-import { Text, Button } from '../components/primitives'
+import { styled } from 'stitches.config'
+import { Text, Button } from 'components/primitives'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-
-const BackgroundContainer = styled(motion.section, {
-  backgroundImage: 'url(img/steak.jpg)',
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
-  height: '70vh',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center'
-})
-
-const Content = styled(motion.div, {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center'
-})
 
 export const Home = () => {
   const { t } = useTranslation()
@@ -76,3 +58,21 @@ export const Home = () => {
     </BackgroundContainer>
   )
 }
+
+const BackgroundContainer = styled(motion.section, {
+  backgroundImage: 'url(img/steak.jpg)',
+  backgroundPosition: 'center',
+  backgroundSize: 'cover',
+  height: '70vh',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center'
+})
+
+const Content = styled(motion.div, {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center'
+})
