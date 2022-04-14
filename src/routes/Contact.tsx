@@ -21,6 +21,7 @@ export const Contact = () => {
         {t('opening')}:
       </Text>
 
+
       <Text>{t('opening1')} 11-22</Text>
       <Text>{t('opening2')} 11-23</Text>
       <Text>{t('opening3')} 12-21</Text>

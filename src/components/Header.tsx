@@ -21,7 +21,6 @@ export const Header = () => {
               {t('book')}
             </Button>
           </Link>
-
           {/* Show other language's button */}
           <Button
             onClick={() =>
@@ -40,7 +39,6 @@ export const Header = () => {
     </Container>
   )
 }
-
 // Styled components below
 const HeaderElement = styled('header', {
   display: 'flex',
@@ -54,3 +52,4 @@ const Group = styled('div', {
   display: 'flex',
   alignItems: 'center'
 })
+

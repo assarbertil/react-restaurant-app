@@ -9,7 +9,6 @@ import { BookingForm } from 'features/booking-form'
 export const Admin = () => {
   const { data } = useBookings()
   const [adding, setAdding] = useState(false)
-
   return (
     <>
       <Center>
