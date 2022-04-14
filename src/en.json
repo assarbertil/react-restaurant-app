@@ -26,15 +26,23 @@
     "at": "at",
     "opening1": "Monday-Thursday",
     "opening2": "Friday-Saturday",
-    "opening3": "Sunday"
+    "opening3": "Sunday",
+    "notFound": "Page can not be found"
   },
   "validation": {
-    "required": "This field is required",
-    "email": "Please enter a valid email address",
-    "phone": "Please enter a valid phone number",
-    "date": "Please enter a valid date",
-    "time": "Please enter a valid time",
-    "gdpr": "Please approve us saving your information",
-    "commenty": "t('validation:required')"
+    "firstNameMin": "Fill in correct name, 2 characters minimum",
+    "firstNameMax": "Fill in correct name, 20 characters max",
+    "firstNameReq": "You must fill in a name",
+    "lastNameMin": "Fill in correct name, 2 characters minimum",
+    "lastNameMax": "Fill in correct name, 20 characters max",
+    "lastNameReq": "You must fill in a name",
+    "emailValid": "Fill in valid email",
+    "emailReq": "You must fill in a email",
+    "phoneMatches": "Fill in a correct phone number, ex: +4612345678",
+    "phoneMin": "Fill in correct phone number, 9 characters minimum",
+    "phoneMax": "Fill in correct phone number, 12 characters max",
+    "phoneReq": "You must fill in a phone number",
+    "guestsReq": "Fill in amount of guests",
+    "gdprReq": "You must approve us saving your information"
   }
 }
