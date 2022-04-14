@@ -52,10 +52,7 @@ export const BookingForm = () => {
     customNumberOfGuests: Yup.number()
       .min(7, t('validation:guestsReq'))
       .max(90, t('validation:guestsReq')),
-    gdpr: Yup.boolean().oneOf(
-      [true],
-      t('validation:gdprReq')
-    )
+    gdpr: Yup.boolean().oneOf([true], t('validation:gdprReq'))
   })
 
   return (
@@ -109,7 +106,7 @@ export const BookingForm = () => {
                   ? values.customNumberOfGuests
                   : values.numberOfGuests) / 6
               ) -
-              1
+                1
             ) {
               // This posts the last booking with the right amount of people
               let peopleAtTheLastTable
@@ -261,7 +258,9 @@ export const BookingForm = () => {
                       name="lastname"
                       type="text"
                       placeholder={t('lastName')}
-                      isError={errors.lastname && touched.lastname ? true : false}
+                      isError={
+                        errors.lastname && touched.lastname ? true : false
+                      }
                       errorMsg={errors.lastname}
                     />
 
@@ -353,7 +352,8 @@ export const BookingForm = () => {
                 </Link>
               </div>
             )}
-          </>)
+          </>
+        )
       }}
     </Formik>
   )
