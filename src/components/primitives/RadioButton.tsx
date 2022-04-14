@@ -1,5 +1,5 @@
 import { Field } from 'formik'
-import { ChangeEventHandler, FC, FocusEvent, FocusEventHandler } from 'react'
+import { ChangeEventHandler, FC, FocusEventHandler } from 'react'
 import { styled } from 'stitches.config'
 
 interface RadioButtonProps {
