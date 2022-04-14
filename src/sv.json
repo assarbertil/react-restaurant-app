@@ -32,26 +32,16 @@
     "firstNameMin": "Ange ett korrekt förnamn, minst 2 bokstäver",
     "firstNameMax": "Ange ett korrekt förnamn, högst 20 bokstäver",
     "firstNameReq": "Du måste ange ditt förnamn",
-
     "lastNameMin": "Ange ett korrekt efternamn, minst 2 bokstäver",
     "lastNameMax": "Ange ett korrekt efternamn, högst 20 bokstäver",
     "lastNameReq": "Du måste ange ditt efternamn",
-
     "emailValid": "Ange en korrekt email",
     "emailReq": "Du måste ange en email",
-
     "phoneMatches": "Ange ett korrekt telefonnummer, ex: +4612345678",
     "phoneMin": "Ange ett korrekt telefonnummer, minst 9 siffror",
     "phoneMax": "Ange ett korrekt telefonnummer, högst 12 siffror",
     "phoneReq": "Du måste ange ditt telefonnummer",
-
-    "guestsMin": "Ange hur många ni är i sällskapet",
-    "guestsMax": "Ange hur många ni är i sällskapet",
     "guestsReq": "Ange hur många ni är i sällskapet",
-
-    "customGuestsMin": "Ange hur många ni är i sällskapet",
-    "customGuestsMax": "Ange hur många ni är i sällskapet",
-
-    "gdprTrue": "Du måste godkänna att vi sparar din information"
+    "gdprReq": "Du måste godkänna att vi sparar din information"
   }
 }
